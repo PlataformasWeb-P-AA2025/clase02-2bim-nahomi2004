@@ -2,6 +2,8 @@ from django.contrib import admin
 
 # Importar las clases del modelo
 from administrativo.models import Estudiante, NumeroTelefonico
+from import_export.admin import ImportExportModelAdmin
+from .resources import EstudianteResource
 
 # Agregar la clase Estudiante para administrar desde
 # interfaz de administración
@@ -10,7 +12,9 @@ from administrativo.models import Estudiante, NumeroTelefonico
 # Se crea una clase que hereda
 # de ModelAdmin para el modelo
 # Estudiante
+@admin.register(Estudiante)
 class EstudianteAdmin(admin.ModelAdmin):
+    resource_class = EstudianteResource
     # listado de atributos que se mostrará
     # por cada registro
     # se deja de usar la representación (str)
@@ -41,7 +45,7 @@ class NumeroTelefonicoAdmin(admin.ModelAdmin):
     # raw_id_fields que permite acceder a una interfaz
     # para buscar los estudiantes y seleccionar el que
     # se desee
-    
+
     # raw_id_fields = ('estudiante',)
 
     def get_estudiante(self, obj):
